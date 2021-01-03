@@ -68,3 +68,40 @@ font-size: 60px;
 
 }
 
+#gameOver{
+	position:fixed;    /*设置元素为固定定位*/
+
+	width:50%;
+	text-align:center;
+    
+	margin:0 auto;
+	font-size:30px;
+	opacity:0.9;
+	font-family:Verdana;
+	color:orange;
+	background-color:#fff;
+	padding:20px;
+
+	border-radius:30%;
+	border:orange dashed 1px;
+	
+	z-index:100;
+}
+
+.btm{
+	margin:20px auto;
+	width:5%;
+	font-size:25px;
+	padding:5px 5px;
+
+	text-decoration:none;
+	border-radius:10px;
+	font-family:Verdana;
+	
+	background-color:#9f8b77;
+	color:#ffffff;	
+}
+
+.btm:hover{
+	background-color :#bbada0;
+}

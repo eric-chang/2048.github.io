@@ -1,9 +1,10 @@
 var boradnumber = []
 var score = 0
 var boradconflict = []
-
+var endflag = false
 //console.log(boradnumber)
 $(document).ready(function () {
+
     moblie()
     newgrid()
 
@@ -27,6 +28,10 @@ function moblie() {
 }
 
 $(document).keydown(function (e) {
+    if (endflag) {
+        e.preventDefault()
+        return
+    }
     e.preventDefault()
     switch (e.keyCode) {
         case 37:   //L
@@ -80,10 +85,18 @@ $(document).keydown(function (e) {
 
 })
 document.addEventListener('touchstart', function (e) {
+    if (endflag) {
+        return
+    }
+    e.preventDefault()
     sx = e.touches[0].pageX
     sy = e.touches[0].pageY
 })
 document.addEventListener('touchend', function (e) {
+    if (endflag) {
+        return
+    }
+    e.preventDefault()
     var ex = e.changedTouches[0].pageX
     var ey = e.changedTouches[0].pageY
     var tox = ex - sx
@@ -152,6 +165,7 @@ document.addEventListener('touchend', function (e) {
     }
 })
 function newgrid() {
+    endflag = false
     boradnumber = []
     for (let i = 0; i < 4; i++) {
         var boradline = []
@@ -173,6 +187,12 @@ function newgrid() {
         boradconflict.push(conflictline)
     }
     $(".alert").css('display', 'none');
+    $(".alert").css('top', documentlenth / 2.4);
+    $(".alert").css('left', documentwidth / 5.2);
+    $(".alert").css('width', containerw / 2);
+    if (documentwidth > 500) {
+        $(".alert").css('top', documentlenth / 3.1)
+    }
     score = 0
     $('span').text(score)
     placegrid()//初始化16个格子
@@ -263,8 +283,10 @@ function newnumber(boradnumber) {
         shownumber(x, y, value)
     }
     else {
-        alert('Game Over\n Your score is ' + score)
-        newgrid()
+        $("#gameOver").show(500);
+        endflag = true
+        //alert('Game Over\n Your score is ' + score)
+        // newgrid()
     }
 
 

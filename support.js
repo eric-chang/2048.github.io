@@ -1,4 +1,5 @@
 documentwidth = window.screen.availWidth
+documentlenth = window.screen.availHeight
 containerw = 0.92 * documentwidth
 cellw = 0.18 * documentwidth
 cellspace = 0.04 * documentwidth
@@ -136,7 +137,7 @@ function leftmove(boradnumber) {
             }
         }
     }
-    setTimeout('numbertoview(boradnumber)', 270)
+    setTimeout('numbertoview(boradnumber)', 230)
     $('span').text(score)
 }
 function upmove(boradnumber) {
@@ -165,7 +166,7 @@ function upmove(boradnumber) {
             }
         }
     }
-    setTimeout('numbertoview(boradnumber)', 270)
+    setTimeout('numbertoview(boradnumber)', 230)
     $('span').text(score)
 }
 
@@ -195,7 +196,7 @@ function rightmove(boradnumber) {
             }
         }
     }
-    setTimeout('numbertoview(boradnumber)', 270)
+    setTimeout('numbertoview(boradnumber)', 230)
     $('span').text(score)
 }
 
@@ -225,7 +226,7 @@ function downmove(boradnumber) {
             }
         }
     }
-    setTimeout('numbertoview(boradnumber)', 270)
+    setTimeout('numbertoview(boradnumber)', 230)
     $('span').text(score)
 }
 
@@ -271,9 +272,10 @@ function isgameover(boradnumber) {
         return true
     }
     else {
-
-        alert('Game Over\n Your score is ' + score)
-        newgrid()
+        $("#gameOver").show(500);
+        //alert('Game Over\n Your score is ' + score)
+        //newgrid()
+        endflag = true
         return false
     }
 
