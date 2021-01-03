@@ -37,44 +37,45 @@ $(document).keydown(function (e) {
         case 37:   //L
             if (isleftmove(boradnumber)) {
                 leftmove(boradnumber)
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
+
                 isgameover(boradnumber)
             }
             else {
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
             break;
         case 38:  //u
             if (isupmove(boradnumber)) {
                 upmove(boradnumber)
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
             else {
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
             break;
         case 39:  //r
             if (isrightmove(boradnumber)) {
                 rightmove(boradnumber)
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
             else {
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
             break;
         case 40:  //d
             if (isdownmove(boradnumber)) {
                 downmove(boradnumber)
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
             else {
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
             break;
@@ -88,15 +89,15 @@ document.addEventListener('touchstart', function (e) {
     if (endflag) {
         return
     }
-    e.preventDefault()
+    //e.preventDefault()
     sx = e.touches[0].pageX
     sy = e.touches[0].pageY
-})
+}, { passive: false })
 document.addEventListener('touchend', function (e) {
     if (endflag) {
         return
     }
-    e.preventDefault()
+    //e.preventDefault()
     var ex = e.changedTouches[0].pageX
     var ey = e.changedTouches[0].pageY
     var tox = ex - sx
@@ -111,11 +112,11 @@ document.addEventListener('touchend', function (e) {
 
             if (isrightmove(boradnumber)) {
                 rightmove(boradnumber)
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
             else {
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
 
@@ -124,11 +125,11 @@ document.addEventListener('touchend', function (e) {
 
             if (isleftmove(boradnumber)) {
                 leftmove(boradnumber)
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
             else {
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
 
@@ -140,11 +141,11 @@ document.addEventListener('touchend', function (e) {
 
             if (isupmove(boradnumber)) {
                 upmove(boradnumber)
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
             else {
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
 
@@ -153,17 +154,17 @@ document.addEventListener('touchend', function (e) {
         else {//d
             if (isdownmove(boradnumber)) {
                 downmove(boradnumber)
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
             else {
-                newnumber(boradnumber)
+                setTimeout('newnumber(boradnumber)', 240)
                 isgameover(boradnumber)
             }
         }
 
     }
-})
+}, { passive: false })
 function newgrid() {
     endflag = false
     boradnumber = []
@@ -188,10 +189,11 @@ function newgrid() {
     }
     $(".alert").css('display', 'none');
     $(".alert").css('top', documentlenth / 2.4);
-    $(".alert").css('left', documentwidth / 5.2);
+    $(".alert").css('left', documentwidth / 4.7);
     $(".alert").css('width', containerw / 2);
     if (documentwidth > 500) {
         $(".alert").css('top', documentlenth / 3.1)
+        $(".alert").css('left', documentwidth / 2.56)
     }
     score = 0
     $('span').text(score)
@@ -246,12 +248,18 @@ function numbertoview(boradnumber) {
                 $numberceil.text(boradnumber[i][j])
                 $numberceil.css('background-color', getbgc(boradnumber[i][j]))
                 $numberceil.css('color', getc(boradnumber[i][j]))
+                $numberceil.css('line-height', cellw + 'px')
+                $numberceil.css('border-radius', cellspace / 2 + 'px')
+                if ((boradnumber[i][j] >= 1024)) {
+                    $numberceil.css('font-size', 0.4 * cellw + 'px')
+                }
+                else {
+                    $numberceil.css('font-size', 0.6 * cellw + 'px')
+                }
             }
         }
     }
-    $('.numberceil').css('line-height', cellw + 'px')
-    $('.numberceil').css('font-size', 0.6 * cellw + 'px')
-    $('.numberceil').css('border-radius', cellspace / 2 + 'px')
+
     boradconflict = []
     for (let i = 0; i < 4; i++) {
         var conflictline = []
@@ -280,6 +288,10 @@ function newnumber(boradnumber) {
         y = index[1]
         value = randomnumber()
         boradnumber[x][y] = value
+        numberceilid = 'numberceil' + x + y
+        $numberceil0 = $('#' + numberceilid)
+        $numberceil0.css('font-size', 0.6 * cellw + 'px')
+        $numberceil0.css('line-height', cellw + 'px')
         shownumber(x, y, value)
     }
     else {
